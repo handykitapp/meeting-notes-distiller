@@ -1,0 +1,22 @@
+{
+  "name": "meeting-notes-distiller",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Meeting Notes Distiller Web assignment monorepo",
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:backend\" \"pnpm dev:frontend\"",
+    "dev:frontend": "pnpm --filter @mnd/frontend dev",
+    "dev:backend": "pnpm --filter @mnd/backend start:dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm --filter @mnd/extractor test",
+    "test:e2e": "playwright test",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "concurrently": "latest",
+    "prettier": "latest",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@mnd/backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start:dev": "nest start --watch",
+    "build": "nest build",
+    "lint": "pnpm --filter @mnd/extractor build && tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@mnd/extractor": "workspace:*",
+    "@nestjs/common": "latest",
+    "@nestjs/core": "latest",
+    "@nestjs/platform-express": "latest",
+    "docx": "latest",
+    "multer": "latest",
+    "reflect-metadata": "latest",
+    "rxjs": "latest"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "latest",
+    "@types/express": "latest",
+    "@types/multer": "latest",
+    "typescript": "latest"
+  }
+}

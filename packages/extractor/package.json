@@ -1,0 +1,19 @@
+{
+  "name": "@mnd/extractor",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "jest --passWithNoTests",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "jest": "latest",
+    "ts-jest": "latest",
+    "typescript": "latest"
+  }
+}
