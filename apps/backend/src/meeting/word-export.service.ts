@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Document, HeadingLevel, Packer, Paragraph, TextRun } from "docx";
-import { ActionItem, MeetingExtractionResult, MeetingIssue } from "@mnd/extractor";
+import { ActionItem, MeetingExtractionResult, MeetingIssue, Participant } from "@mnd/extractor";
 
 function bullet(text: string): Paragraph {
   return new Paragraph({ text, bullet: { level: 0 } });
@@ -50,7 +50,7 @@ export class WordExportService {
     const groupedActions = meetings.reduce<Record<string, ActionItem[]>>((acc, meeting) => {
       for (const [owner, actions] of Object.entries(meeting.actionItemsByOwner)) {
         acc[owner] = acc[owner] ?? [];
-        acc[owner].push(...actions);
+        acc[owner].push(...(actions as ActionItem[]));
       }
       return acc;
     }, {});
@@ -61,7 +61,7 @@ export class WordExportService {
       children.push(new Paragraph(`ไฟล์ต้นทาง: ${meeting.fileName}`));
       children.push(new Paragraph(`วันที่: ${meeting.date ?? "ไม่ทราบ"}`));
       children.push(new Paragraph(`ภาษา/รูปแบบ: ${meeting.language} / ${meeting.format}`));
-      children.push(new Paragraph(`ผู้เข้าร่วม: ${meeting.participants.map((p) => p.name).join(", ") || "ไม่พบชื่อผู้เข้าร่วมใน transcript"}`));
+      children.push(new Paragraph(`ผู้เข้าร่วม: ${meeting.participants.map((p: Participant) => p.name).join(", ") || "ไม่พบชื่อผู้เข้าร่วมใน transcript"}`));
 
       children.push(new Paragraph({ text: "หัวข้อที่พูดคุย", heading: HeadingLevel.HEADING_3 }));
       for (const topic of meeting.topics) {
@@ -90,7 +90,7 @@ export class WordExportService {
     }
 
     children.push(new Paragraph({ text: "ปัญหาที่ต้องตรวจสอบ", heading: HeadingLevel.HEADING_1 }));
-    const allIssues = meetings.flatMap((meeting) => meeting.issues.map((issue) => ({ meeting, issue })));
+    const allIssues = meetings.flatMap((meeting) => meeting.issues.map((issue: MeetingIssue) => ({ meeting, issue })));
     if (allIssues.length === 0) children.push(new Paragraph("ไม่พบ meeting ที่ไม่มีการตัดสินใจ หรือ Action Items ที่ไม่สอดคล้องกัน"));
     for (const { meeting, issue } of allIssues) {
       children.push(new Paragraph({

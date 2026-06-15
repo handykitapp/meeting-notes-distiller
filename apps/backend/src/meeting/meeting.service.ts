@@ -55,9 +55,9 @@ export class MeetingService {
     for (const meeting of meetings) {
       for (const [owner, actions] of Object.entries(meeting.actionItemsByOwner)) {
         globalActionItemsByOwner[owner] = globalActionItemsByOwner[owner] ?? [];
-        globalActionItemsByOwner[owner].push(...actions);
+        globalActionItemsByOwner[owner].push(...(actions as ActionItem[]));
       }
-      globalIssues.push(...meeting.issues.map((issue) => ({ ...issue, fileName: meeting.fileName, meetingTitle: meeting.title })));
+      globalIssues.push(...meeting.issues.map((issue: MeetingIssue) => ({ ...issue, fileName: meeting.fileName, meetingTitle: meeting.title })));
     }
 
     return {

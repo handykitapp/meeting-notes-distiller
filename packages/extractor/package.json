@@ -11,9 +11,10 @@
   },
   "devDependencies": {
     "@types/jest": "latest",
-    "@types/node": "latest",
+    "@types/node": "25.9.1",
     "jest": "latest",
     "ts-jest": "latest",
+    "ts-node": "^10.9.2",
     "typescript": "latest"
   }
 }
